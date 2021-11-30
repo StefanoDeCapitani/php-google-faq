@@ -274,41 +274,7 @@ $tab_content = [
     ],
 ];
 
-function getDeepContent($text, $children){
-    $content = "";
-    if(count($children) === 0) {
-        return $text;
-    } else {
-        $substrings = explode("#", $text);
-
-        foreach($children as $id => $child){
-            $content .= $substrings[$id];
-
-            $child_text = $child["text"];
-            $tag = $child["tag"];
-            $attributes = $child["attributes"];
-            $grandchildren = $child['children'];
-
-            $content .= "<$tag ";
-            if($attributes){
-                foreach($attributes as $attr => $value){
-                    $content .= "$attr='$value'";
-                }
-            }
-            $content .= " >";
-
-            $content .= getDeepContent($child_text, $grandchildren);
-            $content .= "</$tag>";
-        } 
-
-        if(count($children) < count($substrings)){
-            $content .= end($substrings);
-        }
-    }
-    return $content;
-};
-
-function getSuperDeepContent($elem){
+function getDeepContent($elem){
     $text = $elem["text"];
     $tag = $elem["tag"];
     $attributes = $elem["attributes"];
@@ -342,7 +308,7 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
 
     foreach($children as $id => $child){
         $content .= $substrings[$id];
-        $content .= getSuperDeepContent($child);
+        $content .= getDeepContent($child);
     } 
     if(count($children) < count($substrings)){
         $content .= end($substrings);
@@ -386,25 +352,8 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
     <main>
         <?php
             foreach($tab_content as $elem){
-               /*  echo getSuperDeepContent($elem); */
-
-                $text = $elem["text"];
-                $tag = $elem["tag"];
-                $attributes = $elem["attributes"];
-                $children = $elem["children"];
-
-                echo "<$tag ";
-                if($attributes){
-                    foreach($attributes as $attr => $value){
-                        echo "$attr='$value'";
-                    }
-                }
-                echo " >";
-
-                $content = getDeepContent($text, $children);
+                $content = getDeepContent($elem);
                 echo $content;
-
-                echo "</$tag>";
             }
         ?>
     </main>
