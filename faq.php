@@ -3,32 +3,42 @@ $tabs = [
     [
         "text" => "Introduzione",
         "tag" => "h2",
-        "link" => "http://localhost:8888/php-google-faq/index.php",
-        "active" => false,
+        "attributes" => [
+            "href" => "http://localhost:8888/php-google-faq/index.php", 
+            "class" => "a nav__link"
+        ]
     ],
     [
         "text" => "Norme sulla privacy",
         "tag" => "h2",
-        "link" => "http://localhost:8888/php-google-faq/privacy.php",
-        "active" => false,
+        "attributes" => [
+            "href" => "http://localhost:8888/php-google-faq/privacy.php", 
+            "class" => "a nav__link"
+            ]
     ],
     [
         "text" => "Termini di servizio",
         "tag" => "h2",
-        "link" => "http://localhost:8888/php-google-faq/terms.php",
-        "active" => false,
+        "attributes" => [
+            "href" => "http://localhost:8888/php-google-faq/terms.php", 
+            "class" => "a nav__link"
+            ]
     ],
     [
         "text" => "Tecnologie",
         "tag" => "h2",
-        "link" => "http://localhost:8888/php-google-faq/technologies.php",
-        "active" => false,
+        "attributes" => [
+            "href" => "http://localhost:8888/php-google-faq/technologies.php", 
+            "class" => "a nav__link"
+            ]
     ],
     [
         "text" => "Domande frequenti",
         "tag" => "h2",
-        "link" => "http://localhost:8888/php-google-faq/faq.php",
-        "active" => true,
+        "attributes" => [
+            "href" => "http://localhost:8888/php-google-faq/faq.php", 
+            "class" => "a nav__link active"
+            ]
     ],
 ];
 
@@ -152,7 +162,7 @@ $tab_content = [
                 "attributes" => [],
                 "children" => [
                     0 => ["text" => "# #",
-                        "tag" => "ul",
+                        "tag" => "ol",
                         "attributes" => [],
                         "children" => [
                             0 => [
@@ -281,7 +291,7 @@ function getDeepContent($elem){
     $children = $elem["children"];
     $content = "";
 
-    $content .= "<$tag " . getHTMLAttributes($attributes) . " >"; 
+    $content .= "<$tag " . getHTMLAttributes($attributes) . ">"; 
 
     if(count($children) === 0) {
         $content .= $text;
@@ -316,7 +326,6 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
 
     return $content;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -329,20 +338,21 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
     <title>Google Faq</title>
 </head>
 <body>
-    <header>
-        <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="">
-        <h1>Privacy e termini</h1>
-        <nav>
-            <ul>
+    <header class="header">
+        <div class="header__heading">
+            <img class="header__logo" src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google logo">
+            <h1 class="header__title">Privacy e termini</h1>
+        </div>
+        <nav class="nav">
+            <ul class="nav__ul">
                 <?php
                     foreach($tabs as $tab){
                         $tab_name = $tab['text'];
-                        $link = $tab['link'];
                         $tag = $tab['tag'];
-                        $tab_active_class = $tab['active'] ? "active" : "";
+                        $attributes = $tab['attributes'];
 
-                    echo "<li class='$tab_active_class'><a href='$link'>";
-                    echo "<$tag>$tab_name</$tag>";
+                    echo "<li class='nav__list-item'><a " . getHTMLAttributes($attributes) . ">";
+                    echo "<$tag class='nav__tab-title'>$tab_name</$tag>";
                     echo "</a></li>";
                     }
                 ?>
@@ -350,12 +360,14 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
         </nav>
     </header>
     <main>
-        <?php
-            foreach($tab_content as $elem){
-                $content = getDeepContent($elem);
-                echo $content;
-            }
-        ?>
+        <div class="container">
+            <?php
+                foreach($tab_content as $elem){
+                    $content = getDeepContent($elem);
+                    echo $content;
+                }
+            ?>
+        </div>
     </main>
 </body>
 </html>
