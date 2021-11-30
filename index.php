@@ -119,6 +119,10 @@ function substitutePlaceholdersWithChildrensContent($text, $placeholder, $childr
         </ul>
     </nav>
 </header>
-</header>
+<main>
+    <div class="container">
+        <h3>Fai click su "Domande frequenti" per vedere la pagina delle faq</h3>
+    </div>
+</main>
 </body>
 </html>
