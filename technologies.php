@@ -4,7 +4,7 @@ $tabs = [
         "text" => "Introduzione",
         "tag" => "h2",
         "link" => "http://localhost:8888/php-google-faq/index.php",
-        "active" => true,
+        "active" => false,
     ],
     [
         "text" => "Norme sulla privacy",
@@ -22,7 +22,7 @@ $tabs = [
         "text" => "Tecnologie",
         "tag" => "h2",
         "link" => "http://localhost:8888/php-google-faq/technologies.php",
-        "active" => false,
+        "active" => true,
     ],
     [
         "text" => "Domande frequenti",
@@ -32,8 +32,6 @@ $tabs = [
     ],
 ];
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
