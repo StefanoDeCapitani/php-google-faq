@@ -48,8 +48,7 @@ function getDeepContent($elem){
     $attributes = $elem["attributes"];
     $children = $elem["children"];
     $content = "";
-
-    $content .= "<$tag " . getHTMLAttributes($attributes) . ">"; 
+    $content .= "<$tag" . getHTMLAttributes($attributes) . ">"; 
 
     if(count($children) === 0) {
         $content .= $text;
@@ -57,6 +56,7 @@ function getDeepContent($elem){
         $content .= substitutePlaceholdersWithChildrensContent($text, "#", $children);
     }
     $content .= "</$tag>";
+
     return $content;
 }
 
@@ -64,7 +64,7 @@ function getHTMLAttributes($attributes){
     $HTML = "";
     if($attributes){
         foreach($attributes as $attr => $value){
-            $HTML .= "$attr='$value'";
+            $HTML .= " $attr='$value'";
         }
     }
     return $HTML;
